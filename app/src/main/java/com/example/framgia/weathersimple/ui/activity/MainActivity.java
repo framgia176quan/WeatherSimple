@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity
         List<Fragment> fragments = new ArrayList<Fragment>();
         CityFragment cityFragment = new CityFragment("ho chi minh");
         CityFragment cityFragment2 = new CityFragment("Ha noi");
-        CityFragment cityFragment3 = new CityFragment("Da nang");
+        CityFragment cityFragment3 = new CityFragment("Hue");
         fragments.add(cityFragment);
         fragments.add(cityFragment2);
         fragments.add(cityFragment3);
@@ -167,9 +167,6 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onResume() {
         super.onResume();
-
-
-
     }
 
     @Override

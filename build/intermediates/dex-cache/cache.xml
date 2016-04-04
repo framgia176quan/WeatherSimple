@@ -1,2 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<items version="2" />
+<items version="2" >
+
+    <item
+        jar="/home/framgia/AndroidStudioProjects/WeatherSimple/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/23.2.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="e3885783ff8926ed9e2fdcd16816c2e1e73e7aee">
+        <dex dex="/home/framgia/AndroidStudioProjects/WeatherSimple/app/build/intermediates/pre-dexed/release/com.android.support-recyclerview-v7-23.2.1_c76e58cb6049771b985b0ad755078dde25a1a053.jar" />
+    </item>
+    <item
+        jar="/home/framgia/AndroidStudioProjects/WeatherSimple/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.2.1/jars/libs/internal_impl-23.2.1.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="607a3d0b8013b4ccbfeb0b7cb293351994e021fb">
+        <dex dex="/home/framgia/AndroidStudioProjects/WeatherSimple/app/build/intermediates/pre-dexed/release/internal_impl-23.2.1_9f5c3ae07b169b9e0054435bbae04b8eccf3f0fe.jar" />
+    </item>
+    <item
+        jar="/home/framgia/AndroidStudioProjects/WeatherSimple/app/build/intermediates/exploded-aar/com.android.support/animated-vector-drawable/23.2.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="3469cb457f10f74c28cbc05f069b6c894f6cbdd0">
+        <dex dex="/home/framgia/AndroidStudioProjects/WeatherSimple/app/build/intermediates/pre-dexed/release/com.android.support-animated-vector-drawable-23.2.1_90bd7aab573cceb0cc0dd46db409c1789fe9c5c3.jar" />
+    </item>
+    <item
+        jar="/home/framgia/AndroidStudioProjects/WeatherSimple/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.2.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="e4d0cbb0b999604b349062f0214a0a228a7fd151">
+        <dex dex="/home/framgia/AndroidStudioProjects/WeatherSimple/app/build/intermediates/pre-dexed/release/com.android.support-appcompat-v7-23.2.1_860214d72586075e414e315226554c6d658520b0.jar" />
+    </item>
+    <item
+        jar="/home/framgia/Downloads/AndroidSDK/extras/android/m2repository/com/android/support/support-annotations/23.2.1/support-annotations-23.2.1.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="ccb693bc0774fcb637246f7360de25b4af7df318">
+        <dex dex="/home/framgia/AndroidStudioProjects/WeatherSimple/app/build/intermediates/pre-dexed/release/support-annotations-23.2.1_717866c89082e4fb386aee2b07a413ce4f70e958.jar" />
+    </item>
+    <item
+        jar="/home/framgia/AndroidStudioProjects/WeatherSimple/app/build/intermediates/exploded-aar/com.android.support/design/23.2.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="72961d8b453b46e277702f18de9d210bc019e36e">
+        <dex dex="/home/framgia/AndroidStudioProjects/WeatherSimple/app/build/intermediates/pre-dexed/release/com.android.support-design-23.2.1_58c37c7beb6473a6b76495c6594708b4bb96e28e.jar" />
+    </item>
+    <item
+        jar="/home/framgia/AndroidStudioProjects/WeatherSimple/app/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/23.2.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="673d77a5bbddd766037f088e775df525c46407f0">
+        <dex dex="/home/framgia/AndroidStudioProjects/WeatherSimple/app/build/intermediates/pre-dexed/release/com.android.support-support-vector-drawable-23.2.1_689bb0d40c682a71a9256221635b62b55b0433f2.jar" />
+    </item>
+    <item
+        jar="/home/framgia/AndroidStudioProjects/WeatherSimple/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.2.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="3be474b1b21b31cf2fa93fe6bd641ae108d96452">
+        <dex dex="/home/framgia/AndroidStudioProjects/WeatherSimple/app/build/intermediates/pre-dexed/release/com.android.support-support-v4-23.2.1_e70b8a4f872d6152d6484faf38eab7a40a5fe046.jar" />
+    </item>
+
+</items>

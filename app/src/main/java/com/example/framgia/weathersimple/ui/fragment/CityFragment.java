@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -45,6 +46,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 
@@ -61,7 +63,13 @@ public class CityFragment extends Fragment {
     private Calendar calendar;
     private String strDayOfWeek;
     private String strMonthOfYear;
+    private String strDayOfMonth;
+    private String strHour;
+    private String strMinute;
+
     public MyCallBack callBack;
+    private WeatherInWeekFragment weatherInWeekFragment;
+
 
     private static String api = "http://api.openweathermap.org/data/2.5/forecast?appid=b7f3847208e4a3fe8913be845bdb88df&mode=json&q=";
 
@@ -111,10 +119,10 @@ public class CityFragment extends Fragment {
         this.nameCity = nameCity;
     }
 
-    public boolean isNetwork(){
+    public boolean isNetwork() {
         if (networkInfo != null && networkInfo.isConnected()) {
             return true;
-        } else  return false;
+        } else return false;
 
     }
 
@@ -149,7 +157,8 @@ public class CityFragment extends Fragment {
             imgIcoWeather.setImageBitmap(result);
         }
     }
-    class GetData extends GetWeatherDataObject{
+
+    class GetData extends GetWeatherDataObject {
 
 
         public GetData(Context mContext) {
@@ -225,7 +234,7 @@ public class CityFragment extends Fragment {
                     mainObject.setPressure(Double.parseDouble(pressure));
                     mainObject.setHumidity(Integer.parseInt(humidity));
 
-                        Log.d("Quan", "" + mainObject.toString());
+                    Log.d("Quan", "" + mainObject.toString());
 
 
                     JSONArray weatherArray = obj.getJSONArray(TAG_LIST_WEATHER);
@@ -273,8 +282,10 @@ public class CityFragment extends Fragment {
                 e.printStackTrace();
             }
             bindDataToView(weatherDataObject);
-            initPaging();
-            callBack.callBackCall(weatherDataObject);
+
+            weatherInWeekFragment = new WeatherInWeekFragment();
+            weatherInWeekFragment.callBackCall(weatherDataObject);
+//            weatherInWeekFragment.setWeatherDataObject(weatherDataObject);
         }
     }
 
@@ -289,20 +300,21 @@ public class CityFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_city, container , false);
-        Log.d("VA tag", "view = " +view );
+        View view = inflater.inflate(R.layout.fragment_city, container, false);
+        Log.d("VA tag", "view = " + view);
 
         initView(view);
+        initPaging();
         loadDataFromServer();
 
         return view;
     }
 
-    public void initView(View view){
+    public void initView(View view) {
         LinearLayout llContent = (LinearLayout) view.findViewById(R.id.layout_content_detail_now);
-        Log.d("VA tag", "llContent = " +llContent );
+        Log.d("VA tag", "llContent = " + llContent);
         tvNameCity = (TextView) view.findViewById(R.id.tv_name_city);
-        Log.d("VA tag", "tvNameCity = " +tvNameCity );
+        Log.d("VA tag", "tvNameCity = " + tvNameCity);
         tvDateTime = (TextView) view.findViewById(R.id.tv_date_time);
         tvTemp = (TextView) view.findViewById(R.id.tv_temp);
         tvInfoWeather = (TextView) view.findViewById(R.id.tv_infor_weather);
@@ -317,36 +329,26 @@ public class CityFragment extends Fragment {
     }
 
 
-    public void initPaging(){
+    public void initPaging() {
         List<Fragment> fragments = new ArrayList<Fragment>();
-
-        WeatherInWeekFragment weatherInWeekFragment  = new WeatherInWeekFragment();
-        Bundle bundle=new Bundle();
-        bundle.putString("Quan", "Quan");
-        bundle.putSerializable("Quan", weatherDataObject);
-        weatherInWeekFragment.setArguments(bundle);
-
-        WeatherInWeekFragment weatherInWeekFragment2  = new WeatherInWeekFragment();
+        WeatherInWeekFragment weatherInWeekFragment = new WeatherInWeekFragment();
+        WeatherInWeekFragment weatherInWeekFragment2 = new WeatherInWeekFragment();
         fragments.add(weatherInWeekFragment);
         fragments.add(weatherInWeekFragment2);
-
         PagerAdapter pagerAdapter = new PagerAdapter(getActivity().getSupportFragmentManager(), fragments);
-
         viewPager.setAdapter(pagerAdapter);
     }
-    public void bindDataToView(WeatherDataObject weatherDataObject){
+
+    public void bindDataToView(WeatherDataObject weatherDataObject) {
         tvNameCity.setText("" + weatherDataObject.getCity().getName());
         String strDateTime = weatherDataObject.getList().get(0).getDt_txt();
-//        String strDate = strDateTime.substring(0, 10);
-//        String strYear = strDate.substring(0, 4);
-//        String strMonth = strDate.substring(5,7);
-//        String strDay = strDate.substring(8,10);
-        getDateTime();
-        tvDateTime.setText(+calendar.get(Calendar.HOUR_OF_DAY)+":"+calendar.get(Calendar.MINUTE)+" / "+strDayOfWeek+", "+calendar.get(Calendar.DAY_OF_MONTH)+", "+strMonthOfYear);
-        tvTemp.setText(""+ Tool.convertKenvilToCelcius(Float.parseFloat("" + weatherDataObject.getList().get(0).getMain().getTemp()))+ "\u2103");
-        tvInfoWeather.setText(""+weatherDataObject.getList().get(0).getWeather().get(0).getMain());
 
-        tvTempNow.setText(""+Tool.convertKenvilToCelcius(Float.parseFloat("" + weatherDataObject.getList().get(0).getMain().getTempMin()))+"\u2103"+" / "+Tool.convertKenvilToCelcius(Float.parseFloat("" + weatherDataObject.getList().get(0).getMain().getTempMin()))+ "\u2103");
+        getDateTime();
+        tvDateTime.setText(strHour + ":" + strMinute + " / " + strDayOfWeek + ", " + strDayOfMonth + ", " + strMonthOfYear);
+        tvTemp.setText("" + Tool.convertKenvilToCelcius(Float.parseFloat("" + weatherDataObject.getList().get(0).getMain().getTemp())) + "\u2103");
+        tvInfoWeather.setText("" + weatherDataObject.getList().get(0).getWeather().get(0).getMain());
+
+        tvTempNow.setText("" + Tool.convertKenvilToCelcius(Float.parseFloat("" + weatherDataObject.getList().get(0).getMain().getTempMin())) + "\u2103" + " / " + Tool.convertKenvilToCelcius(Float.parseFloat("" + weatherDataObject.getList().get(0).getMain().getTempMin())) + "\u2103");
         tvHumidityNow.setText("" + weatherDataObject.getList().get(0).getMain().getHumidity() + "%");
         tvPressureNow.setText("" + weatherDataObject.getList().get(0).getMain().getPressure() + "hPa");
 
@@ -356,85 +358,27 @@ public class CityFragment extends Fragment {
         //""+urlImage+weatherDataObject.getList().get(0).getWeather().get(0).getIcon()+".png"
     }
 
-    public void getDateTime(){
+    public void getDateTime() {
 
-        int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
-
-        switch (dayOfWeek){
-            case 2:
-                strDayOfWeek = "Monday";
-                break;
-            case 3:
-                strDayOfWeek = "Tuesday";
-                break;
-            case 4:
-                strDayOfWeek = "Wednesday";
-                break;
-            case 5:
-                strDayOfWeek = "Thursday";
-                break;
-            case 6:
-                strDayOfWeek = "Friday";
-                break;
-            case 7:
-                strDayOfWeek = "Statuday";
-                break;
-            case 8:
-                strDayOfWeek = "Sunday";
-                break;
-
-        }
-        int monthOfYear = calendar.get(Calendar.MONTH);
-
-        switch (dayOfWeek){
-            case 1:
-                strMonthOfYear = "Jan";
-                break;
-            case 2:
-                strMonthOfYear = "Feb";
-                break;
-            case 3:
-                strMonthOfYear = "Mar";
-                break;
-            case 4:
-                strMonthOfYear = "Apr";
-                break;
-            case 5:
-                strMonthOfYear = "May";
-                break;
-            case 6:
-                strMonthOfYear = "Jun";
-                break;
-            case 7:
-                strMonthOfYear = "July";
-                break;
-            case 8:
-                strMonthOfYear = "Aug";
-                break;
-            case 9:
-                strMonthOfYear = "Sep";
-                break;
-            case 10:
-                strMonthOfYear = "Oct";
-                break;
-            case 11:
-                strMonthOfYear = "Nov";
-                break;
-            case 12:
-                strMonthOfYear = "Dec";
-                break;
-
-        }
+        Date date = new Date();
+        strHour = (String) android.text.format.DateFormat.format("HH", date);
+        strMinute = (String) android.text.format.DateFormat.format("mm", date);
+        strDayOfWeek = (String) android.text.format.DateFormat.format("EEEE", date);
+        strMonthOfYear = (String) android.text.format.DateFormat.format("MMM", date);
+        strDayOfMonth = (String) android.text.format.DateFormat.format("dd", date);
     }
-    public void loadDataFromServer(){
+
+    public void loadDataFromServer() {
         connMgr = (ConnectivityManager) getActivity()
                 .getSystemService(getActivity().CONNECTIVITY_SERVICE);
         networkInfo = connMgr.getActiveNetworkInfo();
 
-        if(isNetwork()){
+        if (isNetwork()) {
             GetData getData = new GetData(getActivity());
             getData.execute(nameCity);
 
         }
     }
+
+
 }
